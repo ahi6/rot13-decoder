@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ROT13</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="/script.js" defer></script>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" 
+      type="image/png" 
+      href="https://cdn.glitch.com/099c999b-a97f-4135-919b-4d3e89217859%2Ffavicon16.png?v=1585903086782"
+          sizes="16x16">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma-tooltip@3/dist/css/bulma-tooltip.min.css"
+    />
+    <style>
+      body {
+        font-family: "Varela Round", sans-serif;
+      }
+      .footer-dark-theme {
+        background-color: #363636;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero is-dark is-fullheight">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">ROT13 encoder/decoder</h1>
+          <textarea
+            class="textarea"
+            id="inputField"
+            placeholder="Input your text here"
+            oninput="encode()"
+            onmouseover="this.focus()"
+            onmouseout="deselectField()"
+          ></textarea>
+          <br />
+          <textarea
+            class="textarea"
+            id="outputField"
+            readonly
+            placeholder="The output will appear here"
+            onmouseover="selectField(this)"
+            onmouseout="deselectField()"
+          ></textarea>
+          <br />
+          <div class="extra-margin has-text-centered">
+            <button
+              class="button is-light is-rounded has-tooltip-success"
+              type="button"
+              onclick="copyValue(this)"
+              onmouseout="hideTooltip(this)"
+            >
+              📋 Copy output to clipboard
+            </button>
+            <button
+              class="button is-light is-rounded"
+              type="button"
+              onclick="switchFields()"
+            >
+              🔃 Switch fields
+            </button>
+            <button
+              class="button is-light is-rounded"
+              type="button"
+              onclick="cleanFields()"
+            >
+              🗑️ Clean fields
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer footer-dark-theme">
+      <div class="content has-text-centered is-dark">
+        <p>
+          <b>ROT13 Decoder</b> by
+          <a href="https://github.com/ahi6" target="_blank" rel="noreferrer"
+            >ahi6</a
+          >.
+          <a
+            href="https://glitch.com/edit/#!/rot13-decoder"
+            target="_blank"
+            rel="noreferrer"
+            >Source code</a
+          >
+        </p>
+        <p>
+          Built on
+          <a
+            href="https://glitch.com/~rot13-decoder"
+            target="_blank"
+            rel="noreferrer"
+            >🐟 Glitch</a
+          >. Made with
+          <a href="https://bulma.io" target="_blank" rel="noreferrer">Bulma</a>
+          and
+          <a
+            href="https://github.com/Wikiki/bulma-tooltip"
+            target="_blank"
+            rel="noreferrer"
+            >Bulma-tooltip</a
+          >.
+        </p>
+        <p>
+          <a href="https://www.tiktok.com/@notsatanl" target="_blank" rel="noreferrer">Please follow and like this tiktok it is not my tiktok account but it is cool.</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

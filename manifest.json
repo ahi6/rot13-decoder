@@ -1,0 +1,22 @@
+{
+  "short_name": "ROT13 decoder",
+  "name": "ROT13 decoder",
+  "description": "A basic ROT13 encoder/decoder website",
+  "icons": [
+    {
+      "src": "https://cdn.glitch.com/099c999b-a97f-4135-919b-4d3e89217859%2Ffavicon16.png?v=1585903086782",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "https://cdn.glitch.com/099c999b-a97f-4135-919b-4d3e89217859%2Ffavicon.png?v=1585902239246",
+      "type": "image/png",
+      "sizes": "32x32"
+    }
+  ],
+  "start_url": "/index.html",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#212121"
+}
