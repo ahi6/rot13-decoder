@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 
 <html lang="en">
-  
-<head>
+  <head>
     <title>ROT13</title>
     <meta charset="utf-8" />
+    <meta name="description" content="A simple ROT13 decoder made with Bulma" />
+    <meta name="keywords" content="ROT13" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="/script.js" defer></script>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" 
-      type="image/png" 
+    <link rel="manifest" href="/manifest.json" />
+    <link
+      rel="icon"
+      type="image/png"
       href="https://cdn.glitch.com/099c999b-a97f-4135-919b-4d3e89217859%2Ffavicon16.png?v=1585903086782"
-          sizes="16x16">
+      sizes="16x16"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"
@@ -33,6 +35,13 @@
         background-color: #363636;
         color: #fff;
       }
+      .a-dark-theme {
+        color: #29b6f6;
+      }
+      .a-dark-theme:hover {
+        background-color: #eceff1;
+        color: #212121;
+      }
     </style>
   </head>
   <body>
@@ -47,6 +56,7 @@
             oninput="encode()"
             onmouseover="this.focus()"
             onmouseout="deselectField()"
+            aria-label="Input field"
           ></textarea>
           <br />
           <textarea
@@ -56,6 +66,7 @@
             placeholder="The output will appear here"
             onmouseover="selectField(this)"
             onmouseout="deselectField()"
+            aria-label="Output field"
           ></textarea>
           <br />
           <div class="extra-margin has-text-centered">
@@ -89,135 +100,111 @@
       <div class="content has-text-centered is-dark">
         <p>
           <b>ROT13 Decoder</b> by
-          <a href="https://github.com/ahi6" target="_blank" rel="noreferrer"
+          <a
+            href="https://github.com/ahi6"
+            target="_blank"
+            rel="noreferrer"
+            class="a-dark-theme"
             >ahi6</a
           >.
           <a
             href="https://glitch.com/edit/#!/rot13-decoder"
             target="_blank"
             rel="noreferrer"
+            class="a-dark-theme"
             >Source code</a
           >
         </p>
         <p>
-          Built on
+          Made with
           <a
-            href="https://glitch.com/~rot13-decoder"
+            href="https://bulma.io"
             target="_blank"
             rel="noreferrer"
-            >🐟 Glitch</a
-          >. Made with
-          <a href="https://bulma.io" target="_blank" rel="noreferrer">Bulma</a>
+            class="a-dark-theme"
+            >Bulma</a
+          >
           and
           <a
             href="https://github.com/Wikiki/bulma-tooltip"
             target="_blank"
             rel="noreferrer"
+            class="a-dark-theme"
             >Bulma-tooltip</a
           >.
-        </p>
-        <p>
-          <a href="https://www.tiktok.com/@notsatanl" target="_blank" rel="noreferrer">Please follow and like this tiktok it is not my tiktok account but it is cool.</a>
         </p>
       </div>
     </footer>
   </body>
   <script>
-    let alphabet = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z"
-  ];
-  let input,
-    output = "";
-  const inputField = document.getElementById("inputField");
-  const outputField = document.getElementById("outputField");
-  
-  function encode() {
-    input = inputField.value;
-    input = input.split("");
-    output = "";
-    input.forEach(encodeForeach);
-  
-    outputField.value = output;
-  }
-  
-  function encodeForeach(item, index) {
-    let isLowercase = false;
-    if (item === item.toLowerCase()) {
-      isLowercase = true;
+    let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    let input,
+      output = "";
+    const inputField = document.getElementById("inputField");
+    const outputField = document.getElementById("outputField");
+
+    function encode() {
+      input = inputField.value;
+      input = input.split("");
+      output = "";
+      input.forEach(encodeForeach);
+
+      outputField.value = output;
     }
-    let position = alphabet.indexOf(item.toUpperCase());
-    if (position != -1) {
-      position += 13;
-      if (position >= alphabet.length) {
-        position -= alphabet.length;
+
+    function encodeForeach(item, index) {
+      let isLowercase = false;
+      if (item === item.toLowerCase()) {
+        isLowercase = true;
       }
-      item = alphabet[position];
+      let position = alphabet.indexOf(item.toUpperCase());
+      if (position != -1) {
+        position += 13;
+        if (position >= alphabet.length) {
+          position -= alphabet.length;
+        }
+        item = alphabet[position];
+      }
+      if (isLowercase) {
+        item = item.toLowerCase();
+      }
+      output += item;
     }
-    if (isLowercase) {
-      item = item.toLowerCase();
-    }
-    output += item;
-  }
-  
-  const selectField = function(element) {
-    element.select();
-    element.setSelectionRange(0, 99999);
-  };
-  const deselectField = function() {
-    document.activeElement.selectionStart = document.activeElement.selectionEnd;
-  };
-  const copyValue = function(element) {
-    // copy to clipboard
-    selectField(outputField);
-    document.execCommand("copy");
-    deselectField();
-    showTooltip(element, "Copied!");
-  };
-  const switchFields = function() {
-    // switch output and input text
-    input = inputField.value;
-    output = outputField.value;
-    inputField.value = output;
-    outputField.value = input;
-  };
-  const cleanFields = function() {
-    // wipe all field values
-    inputField.value = "";
-    outputField.value = "";
-  };
-  const showTooltip = function(element, message) {
-    // shows the tooltip
-    element.setAttribute("data-tooltip", message);
-  };
-  const hideTooltip = function(element) {
-    // hides the tooltip
-    element.removeAttribute("data-tooltip");
-  };
-  
+
+    const selectField = function(element) {
+      element.select();
+      element.setSelectionRange(0, 99999);
+    };
+    const deselectField = function() {
+      document.activeElement.selectionStart =
+        document.activeElement.selectionEnd;
+    };
+    const copyValue = function(element) {
+      // copy to clipboard
+      selectField(outputField);
+      document.execCommand("copy");
+      deselectField();
+      showTooltip(element, "Copied!");
+    };
+    const switchFields = function() {
+      // switch output and input text
+      input = inputField.value;
+      output = outputField.value;
+      inputField.value = output;
+      outputField.value = input;
+    };
+    const cleanFields = function() {
+      // wipe all field values
+      inputField.value = "";
+      outputField.value = "";
+    };
+    const showTooltip = function(element, message) {
+      // shows the tooltip
+      element.setAttribute("data-tooltip", message);
+    };
+    const hideTooltip = function(element) {
+      // hides the tooltip
+      element.removeAttribute("data-tooltip");
+    };
   </script>
 </html>
